@@ -8,7 +8,7 @@ public class Url extends GenericUrl
   @Key
   private String fields;
 
-  public DailyMotionUrl(String encodedUrl) 
+  public Url(String encodedUrl) 
   {
     super(encodedUrl);
   }
