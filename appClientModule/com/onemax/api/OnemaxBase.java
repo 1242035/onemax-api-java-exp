@@ -18,6 +18,7 @@ import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.JsonObjectParser;
 import com.google.api.client.json.jackson2.JacksonFactory;
+//import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.util.store.DataStoreFactory;
 import com.google.api.client.util.store.FileDataStoreFactory;
 
@@ -32,8 +33,7 @@ public class OnemaxBase {
 	 * make it a single globally shared instance across your application.
 	 */
 	private static FileDataStoreFactory DATA_STORE_FACTORY;
-	/** OAuth 2 scope. */
-	private static final String SCOPE = "read";
+	
 
 	/** Global instance of the HTTP transport. */
 	private static final HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
@@ -58,23 +58,26 @@ public class OnemaxBase {
 	/** Authorizes the installed application to access user's protected data. */
 	public static Credential authorize() throws Exception 
 	{
-		OAuth2ClientCredentials.errorIfNotSpecified();
+		Settings.errorIfNotSpecified();
 		// set up authorization code flow
 		AuthorizationCodeFlow flow = new AuthorizationCodeFlow
-				.Builder(BearerToken.authorizationHeaderAccessMethod(),
-				HTTP_TRANSPORT, 
-				JSON_FACTORY, 
-				new GenericUrl(OAuth2ClientCredentials.TOKEN_SERVER_URL),
-				new ClientParametersAuthentication(OAuth2ClientCredentials.API_KEY, OAuth2ClientCredentials.API_SECRET),
-					OAuth2ClientCredentials.API_KEY, OAuth2ClientCredentials.AUTHORIZATION_SERVER_URL)
-				.setScopes(Arrays.asList(SCOPE))
+				.Builder(
+						BearerToken.authorizationHeaderAccessMethod(),
+						HTTP_TRANSPORT, 
+						JSON_FACTORY, 
+						new GenericUrl(Settings.TOKEN_SERVER_URL),
+						new ClientParametersAuthentication(Settings.API_KEY, Settings.API_SECRET),
+						Settings.API_KEY, 
+						Settings.AUTHORIZATION_SERVER_URL
+				)
+				.setScopes( Arrays.asList(Settings.SCOPE) )
 				.setDataStoreFactory(DATA_STORE_FACTORY)
 				.build();
 		// authorize
 		LocalServerReceiver receiver = new LocalServerReceiver
 				                           .Builder()
-				                           .setHost(OAuth2ClientCredentials.DOMAIN)
-				                           .setPort(OAuth2ClientCredentials.PORT)
+				                           .setHost(Settings.DOMAIN)
+				                           .setPort(Settings.PORT)
 				                           .build();
 		return new AuthorizationCodeInstalledApp(flow, receiver)
 				.authorize("user");
