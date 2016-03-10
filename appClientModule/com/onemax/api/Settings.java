@@ -2,30 +2,24 @@ package com.onemax.api;
 
 public class Settings 
 {
-	 public static final String BASE_URL = "http://api-sandbox.onemax.com.vn:1310";
+	/** Api base url **/
+	public static final String BASE_URL = "http://api-sandbox.onemax.com.vn:1310";
 	
-	 public static final String TOKEN_SERVER_URL = BASE_URL +"/oauth/access_token";
+	/** Auth url **/
+	public static final String TOKEN_URL = BASE_URL + "/oauth/auth";
+	
+	/** Auth mode **/
+	public static final String TOKEN_MODE = "otp_auth";
+	/** Device name **/
+	public static final String DEVICE_NAME = "TPBANK";
+	/** Value of the "API Key". */
+	//public static final String API_KEY = "1874a7cc535cbb67b17c0002fff4a510";
+	public static final String API_KEY = "a7c89ae387f166e68291712363e27136";
 
-	 public static final String AUTHORIZATION_SERVER_URL = BASE_URL + "/oauth/authorize";
-	 /** Value of the "API Key". */
-	 public static final String API_KEY = "d5d48ae18a408d1e2bf124327e1c83aa";
-
-	  /** Value of the "API Secret". */
-	  public static final String API_SECRET = "c22abbc5ce613477237bebb1f433fd96";
-	
-	  /** OAuth 2 scope. */
-	  public static final String SCOPE = "";
-	  /** Port in the "Callback URL". */
-	  public static final int PORT = 1310;
-	
-	  /** Domain name in the "Callback URL". */
-	  public static final String DOMAIN = "127.0.0.1";
+	/** Value of the "API Secret". */
+	//public static final String API_SECRET = "c42183657c734c165d9a40b55944bdb3";
+	public static final String API_SECRET = "9bwBzDMX2Nscuehp8TjHSShUkM3rjUB3uV";
 	  
-	  public static void errorIfNotSpecified() throws Exception 
-	  {
-		   if (API_KEY.isEmpty() || API_SECRET.isEmpty() ) 
-		   {
-			   throw new Exception("API_KEY and API_SECRET in " + Settings.class );
-		   }
-	  }
+	/** Version **/
+	public static final String API_VERSION = "1.0";
 }
